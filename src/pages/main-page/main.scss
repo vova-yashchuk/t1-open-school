@@ -1,0 +1,23 @@
+
+
+.catalog__title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 43px;
+    text-align: left;
+    margin-bottom: 43px;
+    color: #444B58;
+}
+
+.catalog__products-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 35px;
+    margin-bottom: 60px;
+}
+
+.catalog__show-more-button {
+    margin: 0 auto;
+    margin-bottom: 60px;
+}

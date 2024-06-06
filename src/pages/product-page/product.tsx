@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function ProductPage(): React.JSX.Element {
     return (
-        <div className="container">
+        <div className="prouct__container">
             <header className="header">
                 <div className="header__logo">Goods4you</div>
                 <nav className="header__nav">

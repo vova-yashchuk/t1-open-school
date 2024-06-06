@@ -1,0 +1,17 @@
+.catalog__search-wrapper {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.catalog__search-input {
+    border-radius: 4px;
+    background-color: #F6F6F6;
+    color: #B2B5BB;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    text-align: left;
+    padding: 21px 0 21px 16px;
+    flex-grow: 1;
+    margin-right: 20px;
+}
