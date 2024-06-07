@@ -2,7 +2,7 @@ import { Link as AnchorLink } from "react-scroll";
 import "./catalog-btn.scss";
 
 type ButtonProps = {
-    buttonProps: 'Go to shopping' | 'Search' | 'Show more';
+    buttonProps: 'Go to shopping' | 'Search' | 'Show more' | 'Add to cart';
 }
 
 function CatalogBtn({buttonProps}: ButtonProps): React.JSX.Element {
@@ -18,6 +18,10 @@ function CatalogBtn({buttonProps}: ButtonProps): React.JSX.Element {
         case 'Show more':
             return (
                 <button className="catalog__show-more-button catalog-btn">{buttonProps}</button>
+            )
+        case 'Add to cart':
+            return (
+                <button className="catalog__add-button catalog-btn">{buttonProps}</button>
             )
         default:
             return (

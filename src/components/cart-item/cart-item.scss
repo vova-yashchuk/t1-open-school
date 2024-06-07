@@ -1,0 +1,42 @@
+.cart__item {
+    display: flex;
+    justify-content: space-between;
+    min-height: 100px;
+    align-items: center;
+}
+
+.cart__delete-btn {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20.23px;
+    text-align: right;
+    color: #B2B5BB;
+    width: 60px;
+    height: 20px;
+    background-color: #fff;
+    margin-left: 42px;
+}
+
+.cart__picture-wrapper {
+    margin-right: 10px;
+}
+
+.cart__info-wrapper {
+    margin-right: 32px;
+}
+
+.cart__info-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23.12px;
+    text-align: left;
+    color: #444B58;
+}
+
+.cart__info-price {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26.01px;
+    text-align: left;
+    color: #444B58;
+}

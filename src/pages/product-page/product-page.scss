@@ -1,0 +1,113 @@
+.product__container  {
+    flex: 1 1 auto;
+}
+
+.product {
+
+    &__title {
+        color: #444B58;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 43.35px;
+        text-align: left;
+        margin: 55px 0 55px 0;
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__big-img {
+        margin-bottom: 9px;
+    }
+
+    &__images {
+        display: flex;
+        flex-direction: column;
+        margin-right: 42px;
+    }
+
+    &__small-img-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-grow: 1;
+    }
+
+    &__info-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 48px;
+    }
+
+    &__info-title {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 33px;
+        text-align: left;
+        color: #444B58;
+    }
+
+    &__info-id {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 23px;
+        text-align: left;
+        color: #B2B5BB;
+    }
+
+    &__info-id:first-child {
+        margin-right: 10px;
+    }
+
+    &__characters {
+        margin-bottom: 21px;
+    }
+
+    &__characters-item {
+        margin-bottom: 23px;
+    }
+
+    &__characters-item:first-child {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    &__characters-rating {
+        margin-left: 10px;
+    }
+
+    &__characters-text {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 23px;
+        text-align: left;
+        color: #B2B5BB;
+    }
+
+    &__characters-data {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 23.12px;
+        text-align: left;
+        color: #444B58;
+        margin-left: 10px;
+    }
+
+}
+
+.bold {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23px;
+    text-align: left;
+    color: #444B58;
+}

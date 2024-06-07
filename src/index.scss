@@ -53,7 +53,14 @@ html {
 
 body {
     margin: 0;
+    height: 100%;
     // width: 100%;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 p,

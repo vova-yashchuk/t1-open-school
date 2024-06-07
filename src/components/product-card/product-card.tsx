@@ -1,31 +1,37 @@
+import { Link } from "react-router-dom";
+import { Product } from "../../types";
 import CartButtons from "../cart-buttons/cart-buttons";
 import "./product-card.scss";
 
-type ProductCard = {
-    productCartProps: 'inCart' | null;
+type ProductCardProps = {
+    isInCart: boolean;
+    product: Product;
 }
 
-function ProductCard({productCartProps}: ProductCard): React.JSX.Element {
+function ProductCard({ isInCart, product }: ProductCardProps): React.JSX.Element {
+    const { id, name, imgSrc, srcSet, price } = product;
     return (
         <div className="catalog__product">
-            <div className="catalog__product-img-wrapper">
-                <div className="catalog_product-img-effect"></div>
-                <picture>
-                    <source srcSet="https://picsum.photos/200/160" media="(max-width: 768px)"></source>
-                    <source srcSet="https://picsum.photos/300/250" media="(max-width: 1024px)"></source>
-                    <source srcSet="/img/product.png"></source>
-                    <img className="catalog__product-img" src="/img/product.png" alt="Image description"></img>
-                </picture>
-            </div>
+            <Link className="catalog__product-link" to={`/product/${id}`}>
+                <div className="catalog__product-img-wrapper">
+                    <div className="catalog_product-img-effect"></div>
+                    <picture>
+                        <source srcSet={srcSet.small} media="(max-width: 768px)"></source>
+                        <source srcSet={srcSet.medium} media="(max-width: 1024px)"></source>
+                        <source srcSet={srcSet.large}></source>
+                        <img className="catalog__product-img" src={imgSrc} alt="Image description"></img>
+                    </picture>
+                </div>
+            </Link>
             <div className="catalog__product-wrapper">
                 <div className="catalog__product-info">
-                    <p className={productCartProps ? "catalog__product-text in-cart" : "catalog__product-text"}>Essence Mascara Lash Princess</p>
-                    <p className="catalog__product-price">110 $ </p>
+                    <p className={isInCart ? "catalog__product-text in-cart" : "catalog__product-text"}>{name}</p>
+                    <p className="catalog__product-price">{`${price} $`}</p>
                 </div>
-                {productCartProps ? <CartButtons /> : <button className="catalog__product-button">
+                {isInCart ? <CartButtons /> : <button className="catalog__product-button">
                     <img src="/icons/cart.svg" alt="add to cart icon" />
                 </button>}
-                
+
             </div>
 
         </div>

@@ -1,10 +1,13 @@
+import CartItem from "../../components/cart-item/cart-item";
+import "./cart-page.scss";
+
 function CartPage(): React.JSX.Element {
     return (
-        <div className="cart__container">
+        <div className="cart container">
             <h1 className="cart__title">My cart</h1>
             <div className="cart__wrapper">
                 <ul className="cart__list">
-                    <li className="cart__item">
+                    {/* <li className="cart__item">
                         <div className="cart__picture-wrapper">
                             <picture>
                                 <source srcSet="image-small.jpg" media="(max-width: 768px)"></source>
@@ -26,11 +29,15 @@ function CartPage(): React.JSX.Element {
                                 <img src="" alt="" />
                             </button>
                         </div>
-                    </li>
+                        <button className="cart__delete-btn">Delete</button>
+                    </li> */}
+                    <CartItem />
+                    <CartItem />
+                    <CartItem />
                 </ul>
                 <div className="cart__total">
                     <p className="cart__total-count-text">
-                        Total count
+                        Total count:
                         <span className="cart__total-count-qty">3</span>
                     </p>
                     <p className="cart__total-price-text">
