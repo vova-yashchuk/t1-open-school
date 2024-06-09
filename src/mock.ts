@@ -16,7 +16,7 @@ export const products: Product[] = [
         id: 2,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -27,7 +27,7 @@ export const products: Product[] = [
         id: 3,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -38,7 +38,7 @@ export const products: Product[] = [
         id: 4,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -49,7 +49,7 @@ export const products: Product[] = [
         id: 5,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -60,7 +60,7 @@ export const products: Product[] = [
         id: 6,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -71,7 +71,7 @@ export const products: Product[] = [
         id: 7,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -82,7 +82,7 @@ export const products: Product[] = [
         id: 8,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",
@@ -93,7 +93,7 @@ export const products: Product[] = [
         id: 9,
         srcSet: {
             small: "https://picsum.photos/200/160",
-            medium: "https://picsum.photos/300/250",
+            medium: "https://picsum.photos/260/220",
             large: "/img/product.png",
         },
         imgSrc:"/img/product.png",

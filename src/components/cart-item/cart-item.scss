@@ -1,8 +1,17 @@
+@import "/src/index.scss";
+
 .cart__item {
     display: flex;
     justify-content: space-between;
     min-height: 100px;
     align-items: center;
+
+    @include vp-767 {
+        display: grid;
+        grid-template-areas: 
+                "pic btns"
+                "name delete"  
+    }
 }
 
 .cart__delete-btn {
@@ -15,14 +24,31 @@
     height: 20px;
     background-color: #fff;
     margin-left: 42px;
+    grid-area: delete;
+    transition: 0.5s linear;
+}
+
+.cart__delete-btn:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    
 }
 
 .cart__picture-wrapper {
     margin-right: 10px;
+    grid-area: pic;
 }
 
 .cart__info-wrapper {
-    margin-right: 32px;
+    margin-right: 74px;
+
+    @include vp-1023 {
+        margin-right: 32px;
+    }
+
+    @include vp-767 {
+        margin-right: 16px;
+    }
 }
 
 .cart__info-text {
@@ -31,6 +57,7 @@
     line-height: 23.12px;
     text-align: left;
     color: #444B58;
+    grid-area: name;
 }
 
 .cart__info-price {
@@ -39,4 +66,8 @@
     line-height: 26.01px;
     text-align: left;
     color: #444B58;
+}
+
+.cart__info-buttons {
+    grid-area: btns;
 }

@@ -4,6 +4,7 @@ import { Product } from "../../types";
 import SmallProductPicture from "../../components/small-poduct-picture/small-product-picture";
 import "./product-page.scss";
 import CatalogBtn from "../../components/catalog-btn/catalog-btn";
+import Header from "../../components/header/header";
 
 function ProductPage(): React.JSX.Element {
 
@@ -12,18 +13,9 @@ function ProductPage(): React.JSX.Element {
     const {id} = product as Product;
 
     return (
+        <>
+        <Header />
         <div className="product__container">
-            {/* <header className="header">
-                <div className="header__logo">Goods4you</div>
-                <nav className="header__nav">
-                    <Link to="">Catalog</Link>
-                    <Link to="">FAQ</Link>
-                    <Link to="">
-                        <span className="header__link-text">Cart</span>
-                        <img src="" alt="cart icon" />
-                    </Link>
-                </nav>
-            </header> */}
             <section className="product container">
                 <h1 className="product__title">Product {id}</h1>
                 <div className="product__wrapper">
@@ -94,12 +86,12 @@ function ProductPage(): React.JSX.Element {
                             </li>
                         </ul>
                         {/* <button className="product__add catalog-btn"></button> */}
-                        <CatalogBtn buttonProps={'Add to cart'}/>
+                        <CatalogBtn buttonProps={'Add to cart'} />
                     </div>
                 </div>
 
             </section>
-        </div>
+        </div></>
     )
 }
 

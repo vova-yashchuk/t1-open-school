@@ -1,0 +1,43 @@
+.hidden {
+    transform: scaleY(0);
+  }
+
+.rotate {
+    transform: rotate(45deg);
+}
+
+.faq__item {
+    border-bottom: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+    position: relative;
+    transition: max-height 0.5s ease;
+    transform-origin: top; 
+    overflow: hidden;
+}
+
+.faq__item-title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28.9px;
+    text-align: left;
+    margin-bottom: 16px;
+    margin-top: 30px;
+}
+
+.faq__item-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22.4px;
+    text-align: left;
+    margin-bottom: 35px;
+    transform-origin: top; 
+    transition: transform 0.5s ease;
+    overflow: hidden;
+}
+
+.faq__item-button {
+    position: absolute;
+    top: 27px;
+    right: 0;
+    transition: transform 0.5s ease;
+}

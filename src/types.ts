@@ -11,3 +11,7 @@ type SrcSet = {
     medium: string,
     large: string
 }
+
+export type StyleType= {
+    [key: string]: string
+}

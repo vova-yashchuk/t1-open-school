@@ -1,3 +1,5 @@
+@import "/src/index.scss";
+
 .header__nav {
     font-size: 14px;
     font-weight: 600;
@@ -8,10 +10,48 @@
     color: #FFFFFF;
     align-items: center;
     width: 200px;
+
+    @include vp-767 {
+        width: 100%;
+        flex-direction: column;
+    }
 }
 
 .header__cart {
     position: relative;
+    transition: 0.5s linear;
+
+    @include vp-767 {
+        min-height: 32px;
+        border-bottom: 1px solid #FFFFFF;
+        width: 100%;
+        display: flex;
+        align-items: end;
+    }
+}
+
+.header__cart:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #C4C4C4;
+}
+
+.header__cart-icon {
+    transition: 0.5s linear;
+}
+
+.header__cart:hover .header__cart-icon {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #C4C4C4;
+    filter: invert(30%);
+}
+
+.header__cart img {
+
+    @include vp-767 {
+        align-self: center;
+    }
 }
 
 .header__cart-qty {
@@ -27,10 +67,29 @@
     height: 12px;
     background-color: #F14F4F;
     border-radius: 50%;
+
+    @include vp-767 {
+        bottom: 4px;
+        left: 36px;
+    }
 }
 
 .header__nav-link {
+    transition: 0.5s linear;
+
+    @include vp-767 {
+        min-height: 32px;
+        border-bottom: 1px solid #FFFFFF;
+        width: 100%;
+        display: flex;
+        align-items: end;
+    } 
+}
+
+.header__nav-link:hover {
     cursor: pointer;
+    color: #C4C4C4;
+    text-decoration: underline;
 }
 
 .footer__nav {

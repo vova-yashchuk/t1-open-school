@@ -103,7 +103,9 @@ input::-webkit-inner-spin-button {
 
 $vp-320: 320px;
 $vp-375: 375px;
+$vp-475: 475px;
 $vp-768: 768px;
+$vp-878: 878px;
 $vp-1024: 1024px;
 $vp-1280: 1280px;
 $vp-1440: 1440px;
@@ -139,8 +141,20 @@ $vp-1920: 1920px;
     }
 }
 
+@mixin vp-877 {
+    @media (max-width: ($vp-878 - 1px)) {
+        @content;
+    }
+}
+
 @mixin vp-767 {
     @media (max-width: ($vp-768 - 1px)) {
+        @content;
+    }
+}
+
+@mixin vp-474 {
+    @media (max-width: ($vp-475 - 1px)) {
         @content;
     }
 }
@@ -153,25 +167,25 @@ $vp-1920: 1920px;
 
 .container {
     width: 100%;
-    // max-width: 1180px;
+    max-width: 1920px;
     margin: 0 auto;
     padding: 0 370px;
     box-sizing: border-box;
 
-    @include vp-1920 {
-        max-width: none;
-    }
+    // @include vp-1920 {
+    //     max-width: none;
+    // }
 
     @include vp-1919 {
         padding: 0 calc((100% - 1280px) / 2);
     }
 
     @include vp-1439 {
-        padding: 0 80px;
+        padding: 0 120px;
     }
 
     @include vp-1023 {
-        padding: 0 24px;
+        padding: 0 80px;
     }
 
     @include vp-767 {

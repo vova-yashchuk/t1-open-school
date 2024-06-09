@@ -1,3 +1,5 @@
+@import "/src/index.scss";
+
 .cart {
     flex: 1 1 auto;
     
@@ -13,6 +15,11 @@
     &__wrapper {
         display: flex;
         justify-content: space-between;
+
+        @include vp-1439 {
+            flex-direction: column;
+            justify-content: center;
+        }
     }
 
     &__list {
@@ -20,12 +27,25 @@
         border-radius: 4px;
         padding: 30px 47px;
         box-sizing: border-box;
+
+        @include vp-474 {
+            padding: 24px 12px;
+        }
     }
 
     &__total {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        padding-top: 32px;
+
+        @include vp-1023 {
+            padding-top: 0;
+        }
+
+        @include vp-474 {
+            align-items: flex-start;
+        }
     }
 
     &__total-count-text  {
@@ -63,14 +83,26 @@
         text-align: left;
         color: #444B58;
         margin-left: 10px;
+
+        @include vp-767 {
+            font-size: 16;
+            font-weight: 500;
+            line-height: 34px;
+        }
     }
 
     &__total-discount-text {
         font-size: 24px;
         font-weight: 600;
-        line-height: 34.68px;
+        line-height: 34px;
         text-align: left;
         color: #B2B5BB;
+
+        @include vp-767 {
+            font-size: 18;
+            font-weight: 600;
+            line-height: 34px;
+        }
     }
 
     &__total-discount-sum {

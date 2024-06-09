@@ -6,14 +6,12 @@ import MainPage from '../../pages/main-page/main';
 import ProductPage from '../../pages/product-page/product-page';
 import CartPage from '../../pages/cart-page/cart';
 import NotFoundPage from '../../pages/notfound-page/notfound';
-import Header from '../header/header';
 import Footer from '../footer/footer';
 
 function App() {
 
     return (
         <HistoryRouter history={browserHistory}>
-            <Header />
             <Routes>
                 <Route path={AppRoute.Root} element={<MainPage />} />
                 <Route path={AppRoute.Product} element={<ProductPage />} />

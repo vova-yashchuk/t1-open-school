@@ -1,8 +1,10 @@
 import { Link as AnchorLink } from "react-scroll";
 import "./catalog-btn.scss";
+import { AppRoute } from "../../const/const";
+import { Link } from "react-router-dom";
 
 type ButtonProps = {
-    buttonProps: 'Go to shopping' | 'Search' | 'Show more' | 'Add to cart';
+    buttonProps: 'Go to shopping' | 'Search' | 'Show more' | 'Add to cart' | 'На главную';
 }
 
 function CatalogBtn({buttonProps}: ButtonProps): React.JSX.Element {
@@ -22,6 +24,10 @@ function CatalogBtn({buttonProps}: ButtonProps): React.JSX.Element {
         case 'Add to cart':
             return (
                 <button className="catalog__add-button catalog-btn">{buttonProps}</button>
+            )
+        case 'На главную':
+            return (
+                <Link to={AppRoute.Root} className="catalog__add-button catalog-btn">{buttonProps}</Link>
             )
         default:
             return (
