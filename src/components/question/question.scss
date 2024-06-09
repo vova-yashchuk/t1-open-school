@@ -41,3 +41,8 @@
     right: 0;
     transition: transform 0.5s ease;
 }
+
+.faq__item-button:hover {
+    cursor: pointer;
+    filter: invert(30%);
+}
