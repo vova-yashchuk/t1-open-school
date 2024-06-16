@@ -4,7 +4,7 @@ import { AppRoute } from "../../const/const";
 import { Link } from "react-router-dom";
 import { Product } from "../../types";
 
-type ButtonProps = {
+export type ButtonProps = {
     buttonProps: 'Go to shopping' | 'Search' | 'Show more' | 'Add to cart' | 'На главную';
     searchData?: Product[];
     isLoading?: boolean;
@@ -17,7 +17,7 @@ function CatalogBtn({buttonProps, isLoading, handleFetchPoducts, handleFetchSear
     switch (buttonProps) {
         case 'Go to shopping':
             return (
-                <AnchorLink className="hero__button catalog-btn" to="catalog">{buttonProps}</AnchorLink>
+                <AnchorLink className="hero__button catalog-btn" to="catalog">{isLoading ? "..." : buttonProps}</AnchorLink>
             )
         case 'Search':
             return (
@@ -35,15 +35,15 @@ function CatalogBtn({buttonProps, isLoading, handleFetchPoducts, handleFetchSear
             )
         case 'Add to cart':
             return (
-                <button className="catalog__add-button catalog-btn">{buttonProps}</button>
+                <button className="catalog__add-button catalog-btn">{isLoading ? "..." : buttonProps}</button>
             )
         case 'На главную':
             return (
-                <Link to={AppRoute.Root} className="catalog__add-button catalog-btn">{buttonProps}</Link>
+                <Link to={AppRoute.Root} className="catalog__add-button catalog-btn">{isLoading ? "..." : buttonProps}</Link>
             )
         default:
             return (
-                <button className="catalog-btn">{buttonProps}</button>
+                <button className="catalog-btn">{isLoading ? "..." : buttonProps}</button>
             )
     }
 }

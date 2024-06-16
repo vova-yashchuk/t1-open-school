@@ -7,12 +7,14 @@ export type AppSlice = {
   userId: number;
   cartProducts: CartProduct[];
   searchText: string;
+  skipQty: number;
 }
 
 const initialState: AppSlice = {
   userId: 0,
   cartProducts: [],
-  searchText: ''
+  searchText: '',
+  skipQty: 0
 };
 
 export const slice = {
@@ -31,8 +33,11 @@ export const appSlice = createSlice({
     },
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
+    },
+    setSkipQty: (state, action: PayloadAction<number>) => {
+      state.skipQty = action.payload;
     }
   }
 });
 
-export const {setUserId, setInCartProducts, setSearchText} = appSlice.actions;
+export const {setUserId, setInCartProducts, setSearchText, setSkipQty} = appSlice.actions;

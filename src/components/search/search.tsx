@@ -4,7 +4,7 @@ import "./search.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { setSearchText } from "../../store/app-slice";
 
-type SearchProps = {
+export type SearchProps = {
     handleFetchSearch: () => void;
     isLoading: boolean
 }

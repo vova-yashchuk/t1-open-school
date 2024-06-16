@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { CartProduct } from "../../types";
 import CartButtons from "../cart-buttons/cart-buttons";
 import "./cart-item.scss";
@@ -8,9 +9,10 @@ type CartProductProps = {
 
 
 function CartItem({cartProduct}: CartProductProps): React.JSX.Element {
+    const navigate = useNavigate();
     return (
         <li className="cart__item">
-            <div className="cart__picture-wrapper">
+            <div className="cart__picture-wrapper" onClick={() => navigate(`/product/${cartProduct.id}`)}>
                 <picture>
                     <source srcSet={cartProduct.thumbnail} media="(max-width: 768px)"></source>
                     <source srcSet={cartProduct.thumbnail} media="(max-width: 1024px)"></source>

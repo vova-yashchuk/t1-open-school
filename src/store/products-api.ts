@@ -3,20 +3,27 @@ import { Cart, Carts, Data, Product } from "../types";
 
 type GetProductsParams = {
     limit: number,
-    skip: number
+    skip: number,
+    search: string
 }
+
+
 
 export const productsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({baseUrl: 'https://dummyjson.com/'}),
-    endpoints: (build) => ({
+    endpoints: (build) => {
+        return {
         getProducts: build.query<Data, GetProductsParams>({
-            query: ({limit, skip}) => `products?limit=${limit}&skip=${skip}`,
+            query: ({search, limit, skip}) => {
+                if (search === '') {
+                    return `products?limit=${limit}&skip=${skip}`
+                } else {
+                    return `products/${search && `search?q=${search}&limit=${limit}&skip=${skip}`}`
+                }
+            } ,
+            keepUnusedDataFor: 60,
         }),
-        searchProducts: build.query<Data, string>({
-            query: (search = '') => `products/${search && `search?q=${search}`}`,
-        }),
-        
         getCartsByUserId: build.query<Carts, number | ''>({
             query: (userId = '') => `carts/user/${userId && userId}`
         }),
@@ -26,14 +33,16 @@ export const productsApi = createApi({
         getSingleProduct: build.query<Product, number>({
             query: (id) => `products/${id && id}`
         })
-    })
+        }
+
+    }
 });
 
 export const {
     useGetProductsQuery,
     useLazyGetProductsQuery,
-    useLazySearchProductsQuery,
-    useSearchProductsQuery,
+    // useLazySearchProductsQuery,
+    // useSearchProductsQuery,
     useGetCartsByUserIdQuery,
     useGetCartByIdQuery,
     useGetSingleProductQuery,
