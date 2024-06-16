@@ -7,12 +7,8 @@ import { useState, useRef, useEffect } from "react";
 function Header(): React.JSX.Element {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
-
     const [width, setWidth] = useState(window.innerWidth);
     const resizeRef = useRef(null);
-
-
-
 
     useEffect(() => {
         const handleResize = () => {
@@ -49,7 +45,6 @@ function Header(): React.JSX.Element {
 
     useEffect(() => {
         const contentElement = contentRef.current;
-        console.log(contentElement, 'qqq')
         if (contentElement) {
             if (isCollapsed) {
                 contentElement.style.maxHeight = '0';
@@ -57,10 +52,7 @@ function Header(): React.JSX.Element {
                 contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
             }
         }
-
-
     }, [isCollapsed]);
-
 
 
     const toggleCollapse = (evt: React.MouseEvent<HTMLDivElement>): void => {

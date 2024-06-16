@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import { Link as AnchorLink } from 'react-scroll';
-import { AppRoute } from "../../const/const";
+import { AppRoute, USER_ID } from "../../const/const";
 import "./nav.scss";
+import { useGetCartsByUserIdQuery } from "../../store/products-api";
+import { useAppSelector } from "../../hooks/hooks";
 
 type NavigationProps = {
     navigationProps: 'footer' | 'header';
 }
 
 function Navigation({ navigationProps }: NavigationProps): React.JSX.Element {
-
-
+    const userId = useAppSelector((state) => state.appSlice.userId)
+    const {data: cartData} = useGetCartsByUserIdQuery(userId | USER_ID);
+    
     if (navigationProps === 'header') {
         if (window.location.pathname === '/') {
             return (
@@ -19,7 +22,7 @@ function Navigation({ navigationProps }: NavigationProps): React.JSX.Element {
                     <Link className="header__cart" to={AppRoute.Cart}>
                         <span className="header__link-text">Cart</span>
                         <img className="header__cart-icon" src="/icons/cart.svg" alt="cart icon" />
-                        <div className="header__cart-qty">1</div>
+                        {cartData?.carts[0].products.length ? <div className="header__cart-qty">{cartData?.carts[0].products.length}</div> : ''}
                     </Link>
                 </nav>
             )
@@ -31,7 +34,7 @@ function Navigation({ navigationProps }: NavigationProps): React.JSX.Element {
                     <Link className="header__cart" to={AppRoute.Cart} aria-label="Go to Cart">
                         <span className="header__link-text">Cart</span>
                         <img className="header__cart-icon" src="/icons/cart.svg" alt="cart icon" />
-                        <div className="header__cart-qty" aria-label="Number of items in cart">1</div>
+                        {cartData?.carts[0].products.length ? <div className="header__cart-qty">{cartData?.carts[0].products.length}</div> : ''}
                     </Link>
                 </nav>
             )
