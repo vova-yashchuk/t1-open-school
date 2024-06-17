@@ -1,0 +1,27 @@
+@import "/src/index.scss";
+
+.not-found {
+    flex: 1 1 auto;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 32px;
+    }
+
+    &__title {
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 50px;
+        margin-bottom: 64px;
+    }
+
+    &__text {
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 32px;
+        margin-bottom: 64px;
+    }
+}

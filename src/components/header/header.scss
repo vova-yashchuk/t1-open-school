@@ -1,0 +1,96 @@
+@import "/src/index.scss";
+
+.header {
+    background-color: #484283;
+    
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #FFFFFF80;
+
+        @include vp-767 {
+            flex-direction: column;
+            border-bottom: none;
+        }
+    }
+
+    &__logo {
+        color: #FFFFFF;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 43px;
+        text-align: left;
+        padding-top: 15px;
+        padding-bottom: 10px;
+    }
+
+    &__logo-wrapper {
+        @include vp-767 {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+
+    &__button {
+        width: 16px;
+        display: none;
+        height: 1px;
+        background-color: #FFFFFF;
+        align-self: center;
+        position: relative;
+        transition: transform 0.5s ease;
+
+        @include vp-767 {
+            display: block;
+        }
+    }
+
+    &__button::before {
+        content: "";
+        height: 1px;
+        width: 16px;
+        position: absolute;
+        top: -8px;
+        background-color: #FFFFFF;
+        transition: transform 0.5s ease;
+    }
+
+    &__button::after {
+        content: "";
+        width: 16px;
+        position: absolute;
+        bottom: -8px;
+        height: 1px;
+        background-color: #FFFFFF;
+        transition: transform 0.5s ease;
+    }
+
+    &__nav-wrapper {
+        transition: max-height 0.5s ease;
+        transform-origin: top; 
+        overflow: hidden;
+        align-self:flex-start;
+        padding-top: 12px;
+
+        @include vp-767 {
+            width: 100%;
+        }
+    }
+}
+
+.hidden {
+    transform: scaleY(0);
+  }
+
+.toggle {
+    background-color: #484283;
+}
+
+.header__button.toggle::before {
+    transform: rotate(45deg) translate(0, 8px);
+}
+
+.header__button.toggle::after {
+    transform: translate(-5px, -10px) rotate(135deg);
+}

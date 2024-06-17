@@ -1,0 +1,121 @@
+@import "/src/index.scss";
+
+.catalog__product {
+    width: 369px;
+    display: flex;
+    flex-direction: column;
+
+    @include vp-1919 {
+        width: 339px;
+    }
+
+    @include vp-877 {
+        width: 100%;
+        position: relative;
+    }
+}
+
+.catalog__product-img-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.catalog__product-info {
+    @include vp-767 {
+        display: flex;
+    }
+}
+
+
+.catalog_product-img-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #87878740;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.catalog__product-img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.catalog__product:hover .catalog_product-img-effect {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.catalog__product-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23px;
+    text-align: left;
+    color: #444B58;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    @include vp-374 {
+        width: 185px;
+    }
+    
+}
+
+.in-cart {
+    width: 185px;
+
+    @include vp-767 {
+        width: auto;
+    }
+}
+
+.catalog__product-price {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: left;
+
+    @include vp-767 {
+        margin-left: 12px;
+        text-align: right;
+    }
+}
+
+.catalog__product-wrapper {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    @include vp-767 {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0 12px 8px 12px;
+        position: absolute;
+        bottom: 0;
+        flex-direction: column-reverse;
+    }
+
+}
+
+.catalog__product-button {
+    width: 48px;
+    height: 48px;
+    background-color: #F14F4F;
+    border-radius: 4px;
+    transition: 0.5s linear;
+
+    @include vp-767 {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.catalog__product-button:hover {
+    cursor: pointer;
+    background-color: #8C2828;
+}
