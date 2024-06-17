@@ -9,6 +9,15 @@ export enum AppRoute {
   RootFaq = '/#faq'
 }
 
+export const SCROLL_TO_FAQ = 1567;
+export const SCROLL_TO_CATALOG = 528;
+
+export const PRODUCTS_PER_PAGE = 9;
+
+export enum NameSpace {
+  appSlice = "appSlice",
+}
+
 export const headerHeight: StyleType = {
   height: '90px',
 }
@@ -20,3 +29,5 @@ export const headerBorderStyle: StyleType = {
 export const navStyle: StyleType = {
   alignSelf: 'center'
 }
+
+export const USER_ID = 94;
