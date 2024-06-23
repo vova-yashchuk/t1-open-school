@@ -2,24 +2,38 @@ import { Link as AnchorLink } from "react-scroll";
 import "./catalog-btn.scss";
 import { AppRoute } from "../../const/const";
 import { Link } from "react-router-dom";
+import { CartProduct, Product } from "../../types";
 
-type ButtonProps = {
+export type ButtonProps = {
     buttonProps: 'Go to shopping' | 'Search' | 'Show more' | 'Add to cart' | 'На главную';
+    searchData?: Product[];
+    isLoading?: boolean;
+    handleFetchPoducts?: () => void;
+    handleFetchSearch?: () => void;
+    cartProduct?: CartProduct;
+    isMainPage?: boolean;
 }
 
-function CatalogBtn({buttonProps}: ButtonProps): React.JSX.Element {
+function CatalogBtn({buttonProps, isLoading, handleFetchPoducts, handleFetchSearch}: ButtonProps): React.JSX.Element {
+
     switch (buttonProps) {
         case 'Go to shopping':
             return (
-                <AnchorLink className="hero__button catalog-btn" to="catalog">{buttonProps}</AnchorLink>
+                <AnchorLink className="hero__button catalog-btn" to="catalog">{isLoading ? "..." : buttonProps}</AnchorLink>
             )
         case 'Search':
             return (
-                <button className="catalog__search-button catalog-btn">{buttonProps}</button>
+                <button
+                    className="catalog__search-button catalog-btn"
+                    onClick={handleFetchSearch}>{isLoading ? "..." : buttonProps}
+                </button>
             )
         case 'Show more':
             return (
-                <button className="catalog__show-more-button catalog-btn">{buttonProps}</button>
+                <button
+                    className="catalog__show-more-button catalog-btn"
+                    onClick={handleFetchPoducts}>{isLoading ? '...' : buttonProps}
+                </button>
             )
         case 'Add to cart':
             return (
@@ -27,11 +41,11 @@ function CatalogBtn({buttonProps}: ButtonProps): React.JSX.Element {
             )
         case 'На главную':
             return (
-                <Link to={AppRoute.Root} className="catalog__add-button catalog-btn">{buttonProps}</Link>
+                <Link to={AppRoute.Root} className="catalog__add-button catalog-btn">{isLoading ? "..." : buttonProps}</Link>
             )
         default:
             return (
-                <button className="catalog-btn">{buttonProps}</button>
+                <button className="catalog-btn">{isLoading ? "..." : buttonProps}</button>
             )
     }
 }
