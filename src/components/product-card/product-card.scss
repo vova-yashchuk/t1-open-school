@@ -70,7 +70,7 @@
 }
 
 .in-cart {
-    width: 185px;
+    width: 150px;
 
     @include vp-767 {
         width: auto;
@@ -93,6 +93,7 @@
     margin-top: 8px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     @include vp-767 {
         box-sizing: border-box;
@@ -104,21 +105,3 @@
     }
 
 }
-
-// .catalog__product-button {
-//     width: 48px;
-//     height: 48px;
-//     background-color: #F14F4F;
-//     border-radius: 4px;
-//     transition: 0.5s linear;
-
-//     @include vp-767 {
-//         width: 32px;
-//         height: 32px;
-//     }
-// }
-
-// .catalog__product-button:hover {
-//     cursor: pointer;
-//     background-color: #8C2828;
-// }

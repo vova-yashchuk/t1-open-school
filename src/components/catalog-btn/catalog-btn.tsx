@@ -2,7 +2,7 @@ import { Link as AnchorLink } from "react-scroll";
 import "./catalog-btn.scss";
 import { AppRoute } from "../../const/const";
 import { Link } from "react-router-dom";
-import { Product } from "../../types";
+import { CartProduct, Product } from "../../types";
 
 export type ButtonProps = {
     buttonProps: 'Go to shopping' | 'Search' | 'Show more' | 'Add to cart' | 'На главную';
@@ -10,6 +10,8 @@ export type ButtonProps = {
     isLoading?: boolean;
     handleFetchPoducts?: () => void;
     handleFetchSearch?: () => void;
+    cartProduct?: CartProduct;
+    isMainPage?: boolean;
 }
 
 function CatalogBtn({buttonProps, isLoading, handleFetchPoducts, handleFetchSearch}: ButtonProps): React.JSX.Element {
@@ -35,7 +37,7 @@ function CatalogBtn({buttonProps, isLoading, handleFetchPoducts, handleFetchSear
             )
         case 'Add to cart':
             return (
-                <button className="catalog__add-button catalog-btn">{isLoading ? "..." : buttonProps}</button>
+                <button className="catalog__add-button catalog-btn">{buttonProps}</button>
             )
         case 'На главную':
             return (

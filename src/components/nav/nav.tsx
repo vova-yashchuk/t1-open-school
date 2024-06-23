@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Link as AnchorLink } from 'react-scroll';
-import { AppRoute, USER_ID } from "../../const/const";
+import { AppRoute } from "../../const/const";
 import "./nav.scss";
-import { useGetCartsByUserIdQuery } from "../../store/products-api";
+import { dropToken, getToken } from "../../service/token";
 import { useAppSelector } from "../../hooks/hooks";
 
 type NavigationProps = {
@@ -10,8 +10,17 @@ type NavigationProps = {
 }
 
 function Navigation({ navigationProps }: NavigationProps): React.JSX.Element {
-    const userId = useAppSelector((state) => state.appSlice.userId)
-    const {data: cartData} = useGetCartsByUserIdQuery(userId | USER_ID);
+    const token = getToken();
+    const navigate = useNavigate();
+    const cartProducts = useAppSelector((state) => state.appSlice.cartProducts);
+    const productsQty = cartProducts.reduce((acc, currentValue) => {
+        return acc + currentValue.quantity
+    }, 0)
+
+    const handleLogoutClick = () => {
+        dropToken();
+        navigate(AppRoute.Auth);
+    }
     
     if (navigationProps === 'header') {
         if (window.location.pathname === '/') {
@@ -22,8 +31,11 @@ function Navigation({ navigationProps }: NavigationProps): React.JSX.Element {
                     <Link className="header__cart" to={AppRoute.Cart}>
                         <span className="header__link-text">Cart</span>
                         <img className="header__cart-icon" src="/icons/cart.svg" alt="cart icon" />
-                        {cartData?.carts[0].products.length ? <div className="header__cart-qty">{cartData?.carts[0].products.length}</div> : ''}
+                        {productsQty ? <div className="header__cart-qty">{productsQty}</div> : ''}
                     </Link>
+                    {token.length ? <span className="header__link-text logout-btn" onClick={handleLogoutClick}>LogOut
+                        <img className="header__cart-icon logout-icon" src="/img/logout.svg" alt="logout-icon" width={18} height={18} />
+                    </span> : ''}
                 </nav>
             )
         } else {
@@ -34,7 +46,7 @@ function Navigation({ navigationProps }: NavigationProps): React.JSX.Element {
                     <Link className="header__cart" to={AppRoute.Cart} aria-label="Go to Cart">
                         <span className="header__link-text">Cart</span>
                         <img className="header__cart-icon" src="/icons/cart.svg" alt="cart icon" />
-                        {cartData?.carts[0].products.length ? <div className="header__cart-qty">{cartData?.carts[0].products.length}</div> : ''}
+                        {productsQty ? <div className="header__cart-qty">{productsQty}</div> : ''}
                     </Link>
                 </nav>
             )

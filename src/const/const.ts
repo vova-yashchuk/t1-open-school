@@ -6,7 +6,8 @@ export enum AppRoute {
   Cart = '/cart',
   NotFound = '*',
   RootCatalog = '/#catalog',
-  RootFaq = '/#faq'
+  RootFaq = '/#faq',
+  Auth = '/auth'
 }
 
 export const SCROLL_TO_FAQ = 1567;

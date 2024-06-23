@@ -8,38 +8,55 @@ import Hero from "../../components/hero/hero";
 import { useEffect, useState } from "react";
 import { animateScroll as scroll } from 'react-scroll';
 import Header from "../../components/header/header";
-import { useGetCartsByUserIdQuery, useGetProductsQuery, useLazyGetProductsQuery} from "../../store/products-api";
+import { useGetProductsQuery, useLazyGetCartsByUserIdQuery, useLazyGetProductsQuery, useLazyGetUserByTokenQuery} from "../../store/products-api";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setInCartProducts, setSkipQty, setUserId } from "../../store/app-slice";
-import { PRODUCTS_PER_PAGE, SCROLL_TO_CATALOG, SCROLL_TO_FAQ, USER_ID } from "../../const/const";
+import { setCart, setInCartProducts, setSkipQty, setUser } from "../../store/app-slice";
+import { AppRoute, PRODUCTS_PER_PAGE, SCROLL_TO_CATALOG, SCROLL_TO_FAQ} from "../../const/const";
 import CatalogBtn from "../../components/catalog-btn/catalog-btn";
-import { Product } from "../../types";
+import { CartProduct, Product } from "../../types";
 import { isInCart } from "../../utils/utils";
-
+import { dropToken, getToken } from "../../service/token";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../components/loader/loader";
 
 function MainPage(): React.JSX.Element {
-
-    const { data, isLoading, isError } = useGetProductsQuery({ limit: PRODUCTS_PER_PAGE, skip: 0, search: '' });
+    const token = getToken();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const [getUserBytoken, { isError: isUserError }] = useLazyGetUserByTokenQuery();
+    const [getCartsByUserId] = useLazyGetCartsByUserIdQuery();
+    const { data, isLoading } = useGetProductsQuery({ limit: PRODUCTS_PER_PAGE, skip: 0, search: '' });
     const [products, setProducts] = useState<Product[]>([]);
     const [limit, setLimit] = useState(PRODUCTS_PER_PAGE);
     const searchText = useAppSelector((state) => state.appSlice.searchText);
     const [fetchMoreProducts, { isLoading: isMoreProductsLoading }] = useLazyGetProductsQuery();
-    const dispatch = useAppDispatch();
-    dispatch(setUserId(USER_ID));
-    const userId = useAppSelector((state) => state.appSlice.userId);
-    const {data: cartData, isLoading: isCartDataLoading} = useGetCartsByUserIdQuery(userId);
+    const cartData = useAppSelector((state) => state.appSlice.cart)
+    const cartProducts = useAppSelector((state) => state.appSlice.cartProducts);
 
     useEffect(() => {
-        if (cartData) {
-            dispatch(setInCartProducts(cartData?.carts[0].products));
-        }   
-    }, [isCartDataLoading]);
+        if (isLoading) {
+            getUserBytoken(token).unwrap()
+            .then((result) => {
+                dispatch(setUser(result))
+                getCartsByUserId(result.id).unwrap()
+                    .then((result) => {
+                        dispatch(setInCartProducts(result.carts[0].products));
+                        dispatch(setCart(result.carts[0]));
+                    })
+            })
+            .catch((err) => {
+                console.log(err);
+                dropToken();
+                navigate(AppRoute.Auth)
+            })
+        }
+    }, []);
 
+    const getCartProduct = (currentProductId: number, cartProducts: CartProduct[]): CartProduct => {
+        return (cartProducts.find(({id}) => currentProductId === id)) as CartProduct;
+    }
     
-
     let skipQty = useAppSelector((state) => state.appSlice.skipQty);
-
-    const cartProducts = useAppSelector((state) => state.appSlice.cartProducts);
 
     const handleFetchMoreProducts = () => {
         dispatch(setSkipQty(skipQty += PRODUCTS_PER_PAGE));
@@ -86,14 +103,18 @@ function MainPage(): React.JSX.Element {
                     <div className="container">
                         <h2 className="catalog__title">Catalog</h2>
                         <Search handleFetchSearch={handleFetchSearchProducts} isLoading={isMoreProductsLoading} />
-                        {isError ? <div className="error">error</div> : ''}
-                        {isLoading ? <div className="catalog__products-wrapper">Loading...</div> :
+                        {isUserError ? <div className="error">error</div> : ''}
+                        {isLoading ? <div className="catalog__products-wrapper"><Loader height={'100%'}/></div> :
                             <div className="catalog__products-wrapper">
                                 {cartData && products?.map((product) => 
                                     <ProductCard
                                         key={product.id}
                                         product={product}
-                                        isInCart={isInCart(product.id, cartProducts)} />)}
+                                        isInCart={isInCart(product.id, cartProducts)} 
+                                        cartProduct={getCartProduct(product.id, cartProducts)}
+                                        />)
+                                        
+                                        }
                             </div>
                         }
                         {limit && limit >= PRODUCTS_PER_PAGE ?

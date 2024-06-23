@@ -1,15 +1,54 @@
+import { useEffect } from "react";
 import CartItem from "../../components/cart-item/cart-item";
 import Header from "../../components/header/header";
-import { USER_ID } from "../../const/const";
-import { useAppSelector } from "../../hooks/hooks";
-import { useGetCartsByUserIdQuery } from "../../store/products-api";
+import { AppRoute } from "../../const/const";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { dropToken, getToken } from "../../service/token";
+import { setUser, setInCartProducts, setCart } from "../../store/app-slice";
+import { useGetCartsByUserIdQuery, useLazyGetCartsByUserIdQuery, useLazyGetUserByTokenQuery } from "../../store/products-api";
 import "./cart-page.scss";
+import { useNavigate } from "react-router-dom";
+
 
 function CartPage(): React.JSX.Element {
-    const userId = useAppSelector((state) => state.appSlice.userId);
-    const {data, isLoading} = useGetCartsByUserIdQuery(userId | USER_ID);
+    const token = getToken();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const cartProducts = useAppSelector((state) => state.appSlice.cartProducts);
+    const [getUserBytoken] = useLazyGetUserByTokenQuery();
+    const [getCartsByUserId] = useLazyGetCartsByUserIdQuery();
+    useEffect(() => {
+        if (cartProducts.length === 0) {
+            getUserBytoken(token).unwrap()
+            .then((result) => {
+                dispatch(setUser(result))
+                getCartsByUserId(result.id).unwrap()
+                    .then((result) => {
+                        dispatch(setInCartProducts(result.carts[0].products));
+                        dispatch(setCart(result.carts[0]));
+                    })
+            })
+            .catch((err) => {
+                console.log(err);
+                dropToken();
+                navigate(AppRoute.Auth)
+            })
+        }  
+    }, []);
+    const userId = useAppSelector((state) => state.appSlice.user?.id);
+    const {isLoading} = useGetCartsByUserIdQuery(userId as number);
+    const totalQuantity = cartProducts.reduce((acc, currValue) => {
+       return acc + currValue.quantity}, 0);
 
-    if (data && data?.carts.length > 0) {
+    const totalSum = cartProducts.reduce((acc, currValue) => {
+        return acc + currValue.total;
+    }, 0);
+
+    const totalSumWithDiscount = cartProducts.reduce((acc, currValue) => {
+        return acc + (currValue.total - ((currValue.total * currValue.discountPercentage) / 100))
+    }, 0);
+
+    if (cartProducts) {
         return (
             <>
             <Header />
@@ -19,20 +58,20 @@ function CartPage(): React.JSX.Element {
                     <ul className="cart__list">
                     {isLoading ?
                         <div>Loading...</div> :
-                        data?.carts[0].products.map((cartProduct) => <CartItem cartProduct={cartProduct} key={cartProduct.id}/>)}
+                        cartProducts.map((cartProduct) => <CartItem cartProduct={cartProduct} key={cartProduct.id}/>)}
                     </ul>
                     <div className="cart__total">
                         <p className="cart__total-count-text">
                             Total count:
-                            <span className="cart__total-count-qty">{data?.carts[0].totalQuantity}</span>
+                            <span className="cart__total-count-qty">{totalQuantity}</span>
                         </p>
                         <p className="cart__total-price-text">
                             Total price:
-                            <span className="cart__total-price-sum">{data?.carts[0].total}$</span>
+                            <span className="cart__total-price-sum">{totalSum.toFixed(2)}$</span>
                         </p>
                         <p className="cart__total-discount-text">
                             Total price with discount:
-                            <span className="cart__total-discount-sum">{data?.carts[0].discountedTotal}$</span>
+                            <span className="cart__total-discount-sum">{totalSumWithDiscount.toFixed(2)}$</span>
                         </p>
                     </div>
                 </div>

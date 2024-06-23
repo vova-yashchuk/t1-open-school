@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Product } from "../../types";
+import { CartProduct, Product } from "../../types";
 import CartButtons from "../cart-buttons/cart-buttons";
 import "./product-card.scss";
 import AddToCartButton from "../add-to-cart-button/add-to-cart-button";
@@ -7,9 +7,10 @@ import AddToCartButton from "../add-to-cart-button/add-to-cart-button";
 export type ProductCardProps = {
     isInCart: boolean;
     product: Product;
+    cartProduct: CartProduct;
 }
 
-function ProductCard({ isInCart, product }: ProductCardProps): React.JSX.Element {
+function ProductCard({ isInCart, product, cartProduct }: ProductCardProps): React.JSX.Element {
     const { id, title, price, images } = product;
         return (
             <div className="catalog__product" role="listitem">
@@ -29,7 +30,9 @@ function ProductCard({ isInCart, product }: ProductCardProps): React.JSX.Element
                         <p className={isInCart ? "catalog__product-text in-cart" : "catalog__product-text"}>{title}</p>
                         <p className="catalog__product-price">{`${price} $`}</p>
                     </div>
-                    {isInCart ? <CartButtons /> : <AddToCartButton />}
+                    {isInCart ?
+                        <CartButtons productQty={cartProduct.quantity} product={cartProduct}/> :
+                        <AddToCartButton product={product} />}
 
                 </div>
 

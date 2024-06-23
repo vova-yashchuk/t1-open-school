@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { CartProduct } from "../../types";
 import CartButtons from "../cart-buttons/cart-buttons";
 import "./cart-item.scss";
+import { useAppDispatch } from "../../hooks/hooks";
+import { removeCartProduct } from "../../store/app-slice";
 
 type CartProductProps = {
     cartProduct: CartProduct;
@@ -10,6 +12,12 @@ type CartProductProps = {
 
 function CartItem({cartProduct}: CartProductProps): React.JSX.Element {
     const navigate = useNavigate();
+    const dispatch =useAppDispatch();
+
+    const handleDeleteFromCart = (id: number): void => {
+        dispatch(removeCartProduct(id));
+    }
+
     return (
         <li className="cart__item">
             <div className="cart__picture-wrapper" onClick={() => navigate(`/product/${cartProduct.id}`)}>
@@ -24,8 +32,8 @@ function CartItem({cartProduct}: CartProductProps): React.JSX.Element {
                 <p className="cart__info-text">{cartProduct.title}</p>
                 <p className="cart__info-price">{cartProduct.price}$</p>
             </div>
-            <CartButtons />
-            <button className="cart__delete-btn">Delete</button>
+            <CartButtons product={cartProduct} productQty={cartProduct.quantity}/>
+            <button className="cart__delete-btn" onClick={() => handleDeleteFromCart(cartProduct.id)}>Delete</button>
         </li>
     )
 }

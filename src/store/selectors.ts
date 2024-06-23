@@ -6,5 +6,5 @@ import { NameSpace } from "../const/const";
 
 export const getUserId = createSelector(
     (state: Pick<State, NameSpace.appSlice>) => state[NameSpace.appSlice],
-    (state: AppSlice) => state.userId
+    (state: AppSlice) => state.user?.id
   );

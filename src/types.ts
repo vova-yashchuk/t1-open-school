@@ -54,7 +54,8 @@ export type CartProduct = {
         total: number,
         discountPercentage: number,
         discountedTotal: number,
-        thumbnail: string
+        thumbnail: string,
+        discountedPrice: number
 }
 
 
@@ -88,6 +89,24 @@ export type StyleType= {
 
 export type InitialStateType = {
     products: Product[]
+}
+
+export type Login = {
+    username: string,
+    password: string,
+    expiresInMins: number,
+}
+
+export type User = {
+    email: string,
+    firstname: string,
+    gender: string,
+    id: number,
+    image: string,
+    lastName: string,
+    refreshToken: string,
+    token: string,
+    username: string
 }
 
 export type State = ReturnType<typeof store.getState>;

@@ -1,21 +1,46 @@
 import { useParams } from "react-router-dom";
 import SmallProductPicture from "../../components/small-poduct-picture/small-product-picture";
 import "./product-page.scss";
-import CatalogBtn from "../../components/catalog-btn/catalog-btn";
 import Header from "../../components/header/header";
-import { useGetSingleProductQuery } from "../../store/products-api";
+import { useGetSingleProductQuery, useUpdateCartMutation } from "../../store/products-api";
 import { useEffect, useState } from "react";
 import CartButtons from "../../components/cart-buttons/cart-buttons";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { countPriceWidthDiscount, isInCart } from "../../utils/utils";
+import Loader from "../../components/loader/loader";
+import { setProductToUpdateQty, changeCartInStore, addInCartProducts } from "../../store/app-slice";
+import { CartProduct } from "../../types";
 
 function ProductPage(): React.JSX.Element {
 
     const paramsId = useParams();
     const {data, isLoading} = useGetSingleProductQuery(Number(paramsId.id))
-    const cartProducts = useAppSelector((state) => state.appSlice.cartProducts);
+    const cartData = useAppSelector((state) => state.appSlice.cart);
     const [bigImage, setBigImage] = useState<string>('');
+    const cartProducts = useAppSelector((state) => state.appSlice.cartProducts);
+    const cartProduct = (cartProducts.find((product) => product.id === Number(paramsId.id))) as CartProduct;
 
+    const dispatch = useAppDispatch();
+    const cartId = cartData?.id;
+
+    const productsToUpdate = [{
+        id: Number(paramsId.id),
+        quantity: 1
+    }];
+
+    const [updateCart, { isError, isLoading: isUpdateCartLoading }] = useUpdateCartMutation();
+
+    const handleCartUpdate = async () => {
+        if (cartId) {
+            dispatch(setProductToUpdateQty(1));
+            await updateCart({ cartId, productsToUpdate }).unwrap()
+                .then((result) => {
+                    dispatch(changeCartInStore(result));
+                    dispatch(addInCartProducts(result.products.slice(-1)));
+                });
+        } 
+    }
+    
     useEffect(() => {
         if (data) {
             setBigImage(data?.images[0])
@@ -37,7 +62,7 @@ function ProductPage(): React.JSX.Element {
                 <div className="product__wrapper">
                     <div className="product__images">
                         <div className="product__big-img">
-                            {isLoading ? <div>Loading...</div> :
+                            {isLoading ? <Loader height={'100%'}/> :
                                 <picture>
                                     <source srcSet={bigImage} media="(max-width: 768px)"></source>
                                     <source srcSet={bigImage} media="(max-width: 1024px)"></source>
@@ -100,8 +125,15 @@ function ProductPage(): React.JSX.Element {
                             </li>
                         </ul>
 
-                        {isInCart(Number(paramsId.id), cartProducts) ? <CartButtons /> : <CatalogBtn buttonProps={'Add to cart'} searchData={[]} isLoading/>}
-                        
+                        {isInCart(Number(paramsId.id), cartProducts) ?
+                            <CartButtons
+                                productQty={cartProduct?.quantity}
+                                product={cartProduct}/> :
+                                <button
+                                    className="catalog__add-button catalog-btn"
+                                    onClick={handleCartUpdate}>{isUpdateCartLoading ? '...' : 'Add to cart'}
+                                </button>}
+                                {isError ? <div className="error"> some error occured, please try again</div> : ''}
                     </div>
                 </div>
 
